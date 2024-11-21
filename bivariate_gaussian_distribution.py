@@ -1,62 +1,70 @@
-# import modules
-import streamlit as st  
-from scipy.stats import beta  
-import matplotlib.pyplot as plt  
-import numpy as np  
+import numpy as np  # Import NumPy for numerical operations
+import matplotlib.pyplot as plt  # Import Matplotlib for plotting
+from scipy.stats import multivariate_normal  # Import multivariate normal distribution from SciPy
+import streamlit as st  # Import Streamlit for building the web app
 
 # Configure Matplotlib parameters
-p = plt.rcParams  
+p = plt.rcParams  # Access Matplotlib runtime configuration
 p["font.sans-serif"] = ["DejaVu Sans"]  # Set the default font to DejaVu Sans
 p["font.weight"] = "light"  # Set font weight to light
 p["ytick.minor.visible"] = True  # Enable visibility of minor ticks on the y-axis
 p["xtick.minor.visible"] = True  # Enable visibility of minor ticks on the x-axis
 p["axes.grid"] = True  # Enable grid for the plots
-p["grid.color"] = "0.5"  # Setting grid color to a medium gray
-p["grid.linewidth"] = 0.5  # Setting grid line width
+p["grid.color"] = "0.5"  # Set grid color to a medium gray
+p["grid.linewidth"] = 0.5  # Set grid line width
 
-# Define a function for the univariate Gaussian PDF
-def uni_normal_pdf(x, mu, sigma):
-    coeff = 1 / np.sqrt(2 * np.pi) / sigma  # Coefficient of the PDF formula
-    z = (x - mu) / sigma  # Standardized variable (z-score)
-    f_x = coeff * np.exp(-1 / 2 * z**2)  # Calculating the PDF value
-    return f_x  # Returning the PDF value
-
-x_array = np.linspace(-5, 5, 200)  # Linearly spaced values between -5 and 5
-
-# Create a sidebar for user inputs
+# Sidebar inputs for user interaction
 with st.sidebar:
-    st.title('Univariate Gaussian distribution PDF')  # Adding a title in the sidebar
-    st.latex(r'''{\displaystyle f(x)={\frac {1}{\sigma {\sqrt {2\pi }}}}
-             e^{-{\frac {1}{2}}\left({
-             \frac {x-\mu }{\sigma }}\right)^{2}}}''')  # Displaying the Gaussian PDF formula in LaTeX
-    mu_input = st.slider('mu', min_value=-5.0, max_value=5.0, value=0.0, step=0.2)  # Slider for mean (mu)
-    sigma_input = st.slider('sigma', min_value=0.0, max_value=4.0, value=1.0, step=0.1)  # Slider for standard deviation (sigma)
+    st.title('Bivariate Gaussian Distribution')  # Add a title to the sidebar
 
-pdf_array = uni_normal_pdf(x_array, mu_input, sigma_input)  # Calculate PDF values for the user-defined mu and sigma
+    # Mean for the first dimension
+    mu_X1 = st.slider('mu_X1', min_value=-4.0, max_value=4.0, value=0.0, step=0.1)  # Slider for mu_X1
+    # Mean for the second dimension
+    mu_X2 = st.slider('mu_X2', min_value=-4.0, max_value=4.0, value=0.0, step=0.1)  # Slider for mu_X2
+    # Standard deviation for the first dimension
+    sigma_X1 = st.slider('sigma_X1', min_value=0.5, max_value=3.0, value=1.0, step=0.1)  # Slider for sigma_X1
+    # Standard deviation for the second dimension
+    sigma_X2 = st.slider('sigma_X2', min_value=0.5, max_value=3.0, value=1.0, step=0.1)  # Slider for sigma_X2
+    # Correlation coefficient
+    rho = st.slider('rho', min_value=-0.95, max_value=0.95, value=0.0, step=0.05)  # Slider for rho
 
-fig, ax = plt.subplots(figsize=(8, 5))  # Initialize a figure with specified dimensions
+# Set the mean vector
+mu = [mu_X1, mu_X2]  # Mean vector for the bivariate distribution
 
-ax.plot(x_array, pdf_array, 'b', lw=1)  # Plot the PDF as a blue line
+# Construct the covariance matrix
+Sigma = [[sigma_X1**2, sigma_X1 * sigma_X2 * rho],  # Covariance matrix element (1, 2)
+         [sigma_X1 * sigma_X2 * rho, sigma_X2**2]]  # Covariance matrix element (2, 2)
 
-ax.axvline(x=mu_input, c='r', ls='--')  # Vertical line at the mean
-ax.axvline(x=mu_input + sigma_input, c='r', ls='--')  # Vertical line at mu + sigma
-ax.axvline(x=mu_input - sigma_input, c='r', ls='--')  # Vertical line at mu - sigma
+# Create a grid of values for x1 and x2
+width = 4  # Range of the grid
+x1 = np.linspace(-width, width, 321)  # Linearly spaced values for x1
+x2 = np.linspace(-width, width, 321)  # Linearly spaced values for x2
 
-ax.plot(x_array, uni_normal_pdf(x_array, 0, 1), c=[0.8, 0.8, 0.8], lw=1)  # Plot standard normal distribution for comparison
-# Add vertical lines at 0, ±1 for the standard normal distribution
-ax.axvline(x=0, c=[0.8, 0.8, 0.8], ls='--')  # Vertical line at mean 0
-ax.axvline(x=0 + 1, c=[0.8, 0.8, 0.8], ls='--')  # Vertical line at mean +1
-ax.axvline(x=0 - 1, c=[0.8, 0.8, 0.8], ls='--')  # Vertical line at mean -1
+# Generate a meshgrid for x1 and x2
+xx1, xx2 = np.meshgrid(x1, x2)  # Create grid points for x1 and x2
 
-ax.set_xlim(-5, 5)  # Set x-axis limits
-ax.set_ylim(0, 1)  # Set y-axis limits
-ax.set_xlabel(r'$x$')  # Label for the x-axis
-ax.set_ylabel(r'$f_X(x)$')  # Label for the y-axis
-ax.spines.right.set_visible(False)  # Hide the right spine
-ax.spines.top.set_visible(False)  # Hide the top spine
-ax.yaxis.set_ticks_position('left')  # Position ticks on the left for y-axis
-ax.xaxis.set_ticks_position('bottom')  # Position ticks on the bottom for x-axis
-ax.tick_params(axis="x", direction='in')  # Set x-axis tick direction inward
-ax.tick_params(axis="y", direction='in')  # Set y-axis tick direction inward
+# Combine x1 and x2 values into pairs for PDF calculation
+xx12 = np.dstack((xx1, xx2))  # Stack grid points into pairs
 
+# Create a bivariate normal distribution
+bi_norm = multivariate_normal(mu, Sigma)  # Define the bivariate normal distribution
+
+# Compute the PDF for the grid
+PDF_joint = bi_norm.pdf(xx12)  # Calculate the joint PDF for the grid
+
+# Create a plot for the bivariate Gaussian PDF
+fig, ax = plt.subplots(figsize=(5, 5))  # Initialize a figure with specified size
+
+# Plot the contour map of the PDF
+plt.contourf(xx1, xx2, PDF_joint, 20, cmap='RdYlBu_r')  # Filled contours with 20 levels and color map
+
+# Add vertical and horizontal lines indicating the means
+plt.axvline(x=mu_X1, color='k', linestyle='--')  # Vertical line at mu_X1
+plt.axhline(y=mu_X2, color='k', linestyle='--')  # Horizontal line at mu_X2
+
+# Set axis labels
+ax.set_xlabel('$x_1$')  # Label for x-axis
+ax.set_ylabel('$x_2$')  # Label for y-axis
+
+# Display the plot in the Streamlit app
 st.pyplot(fig)  # Render the plot using Streamlit
