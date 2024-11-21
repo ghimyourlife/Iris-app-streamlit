@@ -16,4 +16,11 @@ A simple Streamlit app template for you to modify!
 
    ```
    $ streamlit run display_example.py
+   $ streamlit run visualization_pyplot_plotly.py
+   $ streamlit run input_widgets.py
+   $ streamlit run quardratic_function.py
+   $ streamlit run multi_column.py
+   $ streamlit run multi_tabs.py
+   $ streamlit run expander.py
+   $ streamlit run univariate_gaussian_distribution.py
    ```
