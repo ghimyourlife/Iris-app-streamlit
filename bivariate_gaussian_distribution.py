@@ -68,4 +68,5 @@ ax.set_ylabel('$x_2$')  # Label for y-axis
 
 # Display the plot in the Streamlit app
 st.pyplot(fig)  # Render the plot using Streamlit
-st.markdown("Code download please visit [Github Repo: Visualize-ML](https://github.com/visualize-ml)")
+#st.markdown("Code download please visit [Github Repo: Visualize-ML](https://github.com/visualize-ml)")
+st.markdown('<p style="text-align: center; color: gray;">Code download please visit <a href="https://github.com/visualize-ml" target="_blank">Github Repo: Visualize-ML</a></p>', unsafe_allow_html=True)
