@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 
 # Configure additional Matplotlib parameters for consistency
 p = plt.rcParams
-p["font.sans-serif"] = ["Roboto"]  # Set font style to Roboto
+p["font.sans-serif"] = ["DejaVu Sans"]  # Set font style to DejaVu Sans
 p["font.weight"] = "light"  # Set font weight to light
 p["ytick.minor.visible"] = True  # Enable minor y-ticks
 p["xtick.minor.visible"] = True  # Enable minor x-ticks
