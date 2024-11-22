@@ -23,4 +23,7 @@ A simple Streamlit app template for you to modify!
    $ streamlit run multi_tabs.py
    $ streamlit run expander.py
    $ streamlit run univariate_gaussian_distribution.py
+   $ streamlit run bivariate_gaussian_distribution.py
+   $ streamlit run trivariate_gaussian_distribution.py
+   $ streamlit run polynomial_regression.py
    ```
