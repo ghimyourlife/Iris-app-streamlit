@@ -6,3 +6,5 @@ scipy
 sympy
 matplotlib
 scikit-learn
+pandas_datareader
+statsmodels
