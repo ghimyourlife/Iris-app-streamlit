@@ -3,6 +3,9 @@ import pandas_datareader as pdr
 import seaborn as sns 
 import statsmodels.multivariate.pca as pca  
 import streamlit as st  
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
 
 # Configure additional Matplotlib parameters for consistency
 p = plt.rcParams
