@@ -68,3 +68,4 @@ ax.set_ylabel('$x_2$')  # Label for y-axis
 
 # Display the plot in the Streamlit app
 st.pyplot(fig)  # Render the plot using Streamlit
+st.markdown("Code download please visit [GitHub Repository](https://github.com/visualize-ml)")
