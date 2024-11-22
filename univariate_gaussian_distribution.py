@@ -60,4 +60,3 @@ ax.tick_params(axis="x", direction='in')  # Set x-axis tick direction inward
 ax.tick_params(axis="y", direction='in')  # Set y-axis tick direction inward
 
 st.pyplot(fig)  # Render the plot using Streamlit
-st.markdown('<p style="text-align: center; color: gray;">Code download please visit <a href="https://github.com/visualize-ml" target="_blank">Github Repo: Visualize-ML</a></p>', unsafe_allow_html=True)
