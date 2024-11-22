@@ -73,4 +73,4 @@ ax.set_ylim(-2, 2)  # Set y-axis limits
 
 st.pyplot(fig)  # Render the plot using Streamlit
 
-st.markdown('<p style="text-align: center; color: gray;">Code download please visit <a href="https://github.com/visualize-ml" target="_blank">Github Repo: Visualize-ML</a></p>', unsafe_allow_html=True)
+#st.markdown('<p style="text-align: center; color: gray;">Code download please visit <a href="https://github.com/visualize-ml" target="_blank">Github Repo: Visualize-ML</a></p>', unsafe_allow_html=True)
