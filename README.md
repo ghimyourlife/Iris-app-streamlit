@@ -26,4 +26,5 @@ A simple Streamlit app template for you to modify!
    $ streamlit run bivariate_gaussian_distribution.py
    $ streamlit run trivariate_gaussian_distribution.py
    $ streamlit run polynomial_regression.py
+   $ streamlit run principle_component_analysis.py
    ```
