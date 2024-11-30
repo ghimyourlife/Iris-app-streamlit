@@ -43,8 +43,15 @@ def make_ellipses(gmm, ax):
 
         # Draw ellipses for different scales
         for scale in np.array([3, 2, 1]):
-            ell = Ellipse(gmm.means_[j, :2], scale * major, scale * minor, angle, 
+            #ell = Ellipse(gmm.means_[j, :2], scale * major, scale * minor, angle, 
                           color=rgb[j, :], alpha=0.18)
+             ell = Ellipse(xy=gmm.means_[j, :2],  # Center of the ellipse
+                          width=scale * major,   # Total width (major axis length)
+                          height=scale * minor,  # Total height (minor axis length)
+                          angle=angle,           # Rotation angle
+                          facecolor=rgb[j, :],   # Face color for the ellipse
+                          edgecolor='none',      # No edge color
+                          alpha=0.18) 
             ax.add_artist(ell)
 
 x1_array = np.linspace(4, 8, 101)  # Generate evenly spaced values for x1
