@@ -44,7 +44,7 @@ def make_ellipses(gmm, ax):
         # Draw ellipses for different scales
         for scale in np.array([3, 2, 1]):
             #ell = Ellipse(gmm.means_[j, :2], scale * major, scale * minor, angle, 
-                          color=rgb[j, :], alpha=0.18)
+                          #color=rgb[j, :], alpha=0.18)
              ell = Ellipse(xy=gmm.means_[j, :2],  # Center of the ellipse
                           width=scale * major,   # Total width (major axis length)
                           height=scale * minor,  # Total height (minor axis length)
