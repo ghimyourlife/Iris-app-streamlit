@@ -23,5 +23,4 @@ fig = px.scatter(df,
                  range_y=[25, 90])  # Set the range for the Y-axis
 
 st.plotly_chart(fig)  # Render the Plotly figure in the app
-
-#st.markdown('<p style="text-align: center; color: gray;">Code download please visit <a href="https://github.com/visualize-ml" target="_blank">Github Repo: Visualize-ML</a></p>', unsafe_allow_html=True)
+st.markdown('<p style="text-align: center; color: gray;">Code download please visit <a href="https://github.com/visualize-ml" target="_blank">Github Repo: Visualize-ML</a></p>', unsafe_allow_html=True)
