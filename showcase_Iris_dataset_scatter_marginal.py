@@ -26,4 +26,4 @@ fig = px.scatter(df,
 
 # Display the plot in the Streamlit app
 st.plotly_chart(fig)  # Render the Plotly chart in the app
-st.markdown('<p style="text-align: center; color: gray;">Code download please visit <a href="https://github.com/visualize-ml" target="_blank">Github Repo: Visualize-ML</a></p>', unsafe_allow_html=True)
+#st.markdown('<p style="text-align: center; color: gray;">Code download please visit <a href="https://github.com/visualize-ml" target="_blank">Github Repo: Visualize-ML</a></p>', unsafe_allow_html=True)
